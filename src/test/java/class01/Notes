@@ -1,0 +1,352 @@
+testNG: testNG is a testing tool that can be used for unit, integration testing.
+
+Annotations:
+
+1. @Test : means any test case that you will write is going to be under this annotation.
+
+whenever you run a class, it will run each and every @Test annotation.
+
+2.@BeforeMethod :  The code under this annotation is going to execute everytime before the execution of
+@Test annotation
+
+testNG provides you with things like annotations, preconditions, post-conditions and Assertions.
+
+
+One of the important things we have in testNG is ASSERTIONS
+
+ASSERTIONS :  it's a way to verify if the user enters the correct data for example a message should pop up if the
+password or username is invalid "Invalid Password" or "Invalid Username".
+
+
+In testNG, we have assertions that allows us to compare the two values
+
+syntax:
+Assert.AssertEquals(expected,actual.
+
+Assert.assertEquals("Invalid credentials", errorText)
+
+We have two methods of Assertions
+1. Assert.assert.equals(); --> compares two values to see if they are equal. and the value that can be passed for
+this type of Assertion is String, integer, boolean.
+
+2. Assert.assertTrue(boolean); --> see if value is true. And the value that can be passed for this type of Assertion is
+just boolean.
+
+We have two types of Assertions
+1. Hard Assertion : As soon as one of the assertion fails, the test case is marked as fail and it never bothers to
+check other assertions.
+
+--------------------------------------------Review-------------------------------------------------------------------
+
+1. Pom.xml : this is where we put all our dependencies
+which tags do we use: we use the dependency tags (<dependency></dependency)
+
+2. When we want to load the dependencies as there are red errors? -> we right click and reload the maeven
+
+3. Annotaions:
+
+there are three types of annotations:
+
+1. @Test: every test case is written in @Test annotation. Whenever we run a class, all @Test annotations will
+be executed. we can also run them individually.
+
+2. @BeforeMethod: it's a precondition and will always execute before the @Test annotation.
+
+3. @AfterMethod: it's a post-condition that will always execute after @Test annotation.
+
+4. Priority: By default, 0 is the highest.
+   We can give priority to our test cases. for example: @Test(priority=1)
+   priority flows in this order
+   0,1,2,3,4,5,6,7,8-->
+
+
+4. Enable and Disable:
+
+@Test(enabled=false) : will mark the test case as disabled and will not be part of the execution
+
+By default, enabled=true;
+There's also a disabled and we use it the same way we use the enabled option. it's optional.
+
+
+5. Depends on: @Test(dependsOnMethod={method name}). the test case is dependent on another test case and if the test
+case fails the dependent test case will not execute.
+
+6. Assertion:
+Hard assertions:
+
+1. Assert.assert.Equals(string, string)---> compares two strings, if they are equal the assertion will pass. if not
+equal, the assertion will fail.
+
+2. Assert .assertTrue(boolean)--> will fail if boolean is false, will pass if boolean is true.
+
+Note:
+if any assertion in case of hard assertions fails, the code doesn't proceed on with execution, it terminates
+there and marks the test case as a failed test case.
+
+review:
+What are the disadvantages of using if else in testNG? if else does not effect the failure or passage of the test case.
+
+Assertion will pass the test case if the results or the condition matches.
+Assertion will fail the test case if condition fails.
+
+under Hard Assertions, we have these methods:
+Assert.assertEquals(actual, expected): compares two strings,int,booleans..
+Assert.assertTrue(boolean): verifies if a boolean value is true
+
+catch in Hard assertions: As soon as one of the assert statement fails, the test will be marked as "failed",
+and it will not bother to check other assert statements or execute even the rest of the code.
+
+
+---------------------Soft Assertions----------------------------------------------------------------
+
+this is how to call the soft assertion from the SoftAssert class :
+            SoftAssert soft=new SoftAssert()
+            after initiating the class then use the following code to compare two values
+            soft.assertEquals(actual, expected);
+
+            To verify if a boolean is true:
+            SoftAssert soft=new SoftAssert() // although you don't need to call the class again, just once is enough
+            soft.assertTrue(boolean)
+
+  Soft Assertions will not mark the test case as "failed" immediately even if "one assertion" has failed.
+  it is going to keep on asserting other conditions and at the end will return the results.
+
+
+  Once you have made all the assertions in the test case, use soft.assertAll() at the end.
+
+
+ -Soft assertions can be used in a single test case when you have more than one assertion and you want to know
+  which are the ones that are failing then you can use soft assertion.
+
+ -Hard assertions can be used in a single test case despite the number of assertions.If you want your test
+ case to fail even if the first assertion fails.
+
+---------------------------------------- Approach ------------------------------------------------
+Steps to using Soft assertions:
+
+1. create an object of SoftAssert
+2. call the assertion from SoftAssert
+3. once you have written down all the assertions,then at the end do soft.assertAll()
+
+
+-------------------------------Data provider--------------------------------------------------
+when it comes to data provider;
+1. it must have annotation 'data Provider'
+2. it must have a name
+3. it must be a 2D array
+
+for a test case to work with a data provider;
+1. We must connect it to the data provider. Example; (dataProvider="name").
+2. in other to get the data, we must have parameters for the function.
+
+
+Note:
+code will execute equal to the number of rows in dataset.. this is called data driven testing...
+If you have to test like 3 or 4 or even 5 lines of code then you should use Data provider but if the data you want
+to test are huge, like say 100 lines or more then we should use Excel.
+
+
+Review:
+Soft Assertions
+1. Approach
+a. create an object of class SoftAssert
+b. call the assertions from this class
+c. once you are done making assertion then type this line of code: soft.assertAll().
+
+advantages --> it will still check other assertions even if one has failed
+
+
+--------------------------Data Provider------------------
+
+Why do we use dataProvider?
+--> for data driven testing
+--> same scenarios with different set of data
+
+Approach:
+1. use @dataProvider(name="name")
+   give the data set in the 2D array a name
+
+2. link your test case with the data provider @Test(dataProvider="name")
+
+3. in the parameters, you are going to declare variable to hold data from the dataset.
+
+
+
+-------------------------------testNG XML----------------------------------------------------
+
+XML: is a file format.
+
+The purpose of XML is to control the execution of your test cases according to your requirements
+
+Notes: Whenever you want to create a testNG XML:
+Approach:
+1. make sure the testNG XML file is installed in the marketPlace under pluggins in settings which is located
+after clicking on file.
+    go to file--> preferences (intellijidea-->preferences) this is for MAC users
+    got to file--> marketPlace--> type TestNG XML in the search box and install--> apply ok.
+
+testing xml file for a particular class:
+approach:
+1. right click on the particular class --> choose option create testNG xml
+2. then click ok
+3. right click on the project name and select the option 'reload from disk'.
+
+
+
+In testNG XML file
+we have a structure
+
+<suite>
+     <test name="abc">
+            <classes>
+                <class name= ></class>
+                <class name= ></class>
+
+            </classes>
+
+     </test
+</suite>
+
+Parallel testing is when all classes on XML are executing simultaneously
+
+1.  XML file:
+a. Class wise execution : this is an execution whereby we can control which classes to execute.
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true"
+          name="myTest">  // the name can be anything.
+       <classes>
+           <class name="class01.priority"></class>
+
+           <class name="class02.dataProvider"></class>
+
+           <class name="class01.AssertionBasic"></class>
+
+      </classes>
+    </test>
+</suite>
+
+
+b. Method wise Execution:
+    In other to include a method, simply use the tag name "include"
+    In other to not run a method, just use the tag name "exclude"
+
+
+c. Package wise execution:
+You can run the whole package i.e all the classes included in that package.
+
+<suite name="custom-fit">
+    <test verbose="2" preserve-order="true" name="bran">
+        <packages>
+            <package name="class01"></package>
+        </packages>
+    </test>
+</suite>
+
+
+d. group wise execution:
+regression group--> will consist of all the test cases included in regression testing.
+
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="regression group">
+       <groups>
+           <run>
+               <include name="regression"/>
+           </run>
+       </groups>
+        <packages>
+            <package name="class01"></package>
+        </packages>
+    </test>
+</suite>
+
+Note: Whenever yo are marking a test case in a group and that test case has a before and after method,make sure
+to mark it as (alwaysRun=true) otherwise those pre-post conditions are not going to run.
+
+@BeforeMethod(alwaysRun=true)
+
+
+Thread count: the minimum number of thread count should be equal to the number of
+classes/methods you want to run in parallel.
+
+
+
+---------------------------------------------Listener-----------------------------------------------
+
+how to use listener:
+Approach:
+1. create a class to implement iTestListener and two of it's method which are onTestSuccess and onTestFailure.
+2. override the two methods by implementing it in the new class that will implement the interface iTestListener.
+example: class listener implements iTestListener{
+            @override
+            onTestSuccess(){
+            sout(test has passed)
+            }
+
+          And for the failure of the test, simply follow same process:
+             @override
+             onTestFailure(){
+             sout(test has failed)
+             }
+
+}
+
+then we need to make a connection between the Listener class and our test cases using xml file
+in our xml file.
+Approach:
+      1. type in your xml file <Listener class=listener/> // here we are telling the xml file where the
+         implementation of Listener is which is in the listener class.
+      2. then type:
+            <classes>
+                <class name=classB/>
+                <class name=classA/>
+            </classes>
+
+Now the connection to both classes which you want to connect the listener to are connected to the listener
+       and now you can run your test cases and after which you will find the Listener print out result in the console
+       telling you is the test cases passed or failed.
+
+Task: take the screenshot when the test case fails.
+Approach:
+1. create a class that implements iTestListener
+2. in the function on TestFailure you will implement the method takeScreenShot
+3. you will link the listener to the class using xml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
